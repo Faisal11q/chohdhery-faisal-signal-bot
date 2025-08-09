@@ -1,0 +1,65 @@
+/* ======== General Reset ======== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ======== Body ======== */
+body {
+    background-color: black;
+    color: white;
+}
+
+/* ======== Container ======== */
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* ======== Title ======== */
+h1 {
+    text-align: center;
+    color: #00ccff;
+    margin-bottom: 20px;
+}
+
+/* ======== Select Inputs ======== */
+select, input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #111;
+    color: white;
+    border: 1px solid #00ccff;
+    border-radius: 5px;
+}
+
+/* ======== Button ======== */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: green;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: darkgreen;
+}
+
+/* ======== Signal Output ======== */
+#signal-output {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #111;
+    border: 1px solid #00ccff;
+    border-radius: 5px;
+    text-align: center;
+}

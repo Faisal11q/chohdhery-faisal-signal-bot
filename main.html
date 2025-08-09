@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Password Page</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://i.ibb.co/gbwrJ8Yp/images-1.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Animated Borders */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+}
+
+body::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 4px solid transparent;
+    border-image: linear-gradient(90deg, blue, red);
+    border-image-slice: 1;
+    animation: borderMove 4s linear infinite;
+}
+
+@keyframes borderMove {
+    0% { border-image-source: linear-gradient(90deg, blue, red); }
+    50% { border-image-source: linear-gradient(270deg, blue, red); }
+    100% { border-image-source: linear-gradient(90deg, blue, red); }
+}
+
+/* Password Box */
+.container {
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    border-top: 4px solid blue;
+    border-bottom: 4px solid red;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+    outline: none;
+    width: 200px;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 0 5px 5px 0;
+    border: none;
+    background-color: #00ffcc;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #00ccaa;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <input type="password" placeholder="ENTER PASSWORD">
+        <button>ENTER</button>
+    </div>
+</body>
+</html>

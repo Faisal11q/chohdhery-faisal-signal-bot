@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Signal Bot — Main</title>
+<style>
+  :root{
+    --bg:#000;
+    --box-bg:#0b0b0b;
+    --neon:#00ff66;
+    --text:#ffffff;
+    --accent:#0a8f46;
+  }
+  html,body{height:100%;margin:0;padding:0;background:var(--bg);color:var(--text);font-family: "Segoe UI", Tahoma, Arial, sans-serif;direction: ltr;}
+  .wrap{max-width:420px;margin:0 auto;padding:18px 14px;box-sizing:border-box;min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+  .logo{margin-top:8px;margin-bottom:18px;position:relative;}
+  .logo img{
+    width:120px;height:120px;border-radius:50%;object-fit:cover;
+    border:4px solid rgba(0,180,80,0.9);
+    box-shadow:0 0 28px rgba(0,200,100,0.25), inset 0 0 12px rgba(0,200,100,0.12);
+  }
+  .boxes{width:100%;display:flex;flex-direction:column;gap:18px;align-items:center;}
+  .box{
+    width:100%;
+    max-width:360px;
+    min-height:66px;
+    background:var(--box-bg);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:10px 14px;
+    box-sizing:border-box;
+  }
+  .box::after{
+    content:"";
+    position:absolute;inset:0;border-radius:12px;
+    pointer-events:none;
+    box-shadow:0 0 12px rgba(0,230,120,0.14);
+    border:2px solid rgba(0,200,100,0.9);
+    mix-blend-mode: screen;
+    animation: neonPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes neonPulse{
+    0%{ box-shadow:0 0 6px rgba(0,200,100,0.12); transform:translateY(0); }
+    50%{ box-shadow:0 0 20px rgba(0,230,120,0.28); transform:translateY(-1px); }
+    100%{ box-shadow:0 0 6px rgba(0,200,100,0.12); transform:translateY(0); }
+  }
+  select.form-select{
+    width:100%;background:#111;border:0;color:var(--text);padding:12px 14px;border-radius:8px;font-size:18px;
+  }
+  .name-text{
+    font-size:22px;color:var(--text);font-weight:700;letter-spacing:1px;text-align:center;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .time-select{width:100%;background:#111;border:0;color:var(--text);padding:12px 14px;border-radius:8px;font-size:18px;}
+  .get-btn{
+    width:100%;max-width:300px;background:var(--accent);color:#fff;border:0;padding:12px 18px;border-radius:10px;font-size:20px;cursor:pointer;font-weight:700;
+    box-shadow:0 6px 18px rgba(0,0,0,0.4);
+  }
+  .signal-output{
+    margin-top:18px;width:100%;max-width:360px;border-radius:14px;padding:18px 16px;box-sizing:border-box;font-weight:700;font-size:18px;
+    color:#fff;background:transparent;border:2px solid rgba(255,255,255,0.03);
+    text-align:center;
+    min-height:88px;
+    display:flex;flex-direction:column;justify-content:center;gap:6px;
+  }
+  .signal-line{font-size:18px;}
+  .signal-single-line{font-size:16px;opacity:0.95;}
+  .gear{position:fixed;right:14px;bottom:14px;background:rgba(255,255,255,0.06);padding:10px;border-radius:50%;box-shadow:0 6px 12px rgba(0,0,0,0.6);}
+  @media (max-width:420px){
+    .wrap{padding:14px;}
+    .logo img{width:110px;height:110px;}
+    .name-text{font-size:20px;}
+    .get-btn{font-size:18px;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- لوگو — یہاں اپنی تصویر کا لنک رکھیں -->
+    <div class="logo">
+      <img id="logoImg" src="https://i.ibb.co/gbwrJ8Yp/images-1.jpg" alt="لوگو / تصویر" />
+    </div>
+
+    <div class="boxes">
+      <!-- 1) Asset box -->
+      <div class="box">
+        <select id="assetSelect" class="form-select" aria-label="Select Asset">
+          <option>EUR/USD</option>
+          <option>GBP/USD</option>
+          <option>USD/JPY</option>
+          <option>AUD/USD</option>
+          <option>USD/CAD</option>
+          <option>USD/CHF</option>
+          <option>NZD/USD</option>
+          <option>EUR/JPY</option>
+          <option>GBP/JPY</option>
+          <option>EUR/GBP</option>
+          <option>EUR/CHF</option>
+          <option>GBP/CHF</option>
+          <option>EUR/AUD</option>
+          <option>AUD/JPY</option>
+          <option>NZD/JPY</option>
+          <option>USD/TRY</option>
+          <option>EUR/TRY</option>
+          <option>USD/INR</option>
+          <option>EUR/INR</option>
+          <option>USD/PKR</option>
+          <option>USD/MXN</option>
+          <option>USD/ZAR</option>
+          <option>EUR/USD OTC</option>
+          <option>GBP/USD OTC</option>
+          <option>USD/JPY OTC</option>
+          <option>AUD/USD OTC</option>
+          <option>USD/CAD OTC</option>
+          <option>USD/CHF OTC</option>
+          <option>NZD/USD OTC</option>
+          <option>EUR/JPY OTC</option>
+          <option>GBP/JPY OTC</option>
+          <option>USD/TRY OTC</option>
+          <option>USD/INR OTC</option>
+          <option>USD/PKR OTC</option>
+        </select>
+      </div>
+
+      <!-- 2) Name box (چھوٹا ایک لائن) -->
+      <div class="box">
+        <div class="name-text" title="CHOHDHERY FAISAL">CHOHDHERY FAISAL</div>
+      </div>
+
+      <!-- 3) Timeframe box -->
+      <div class="box">
+        <select id="tfSelect" class="time-select">
+          <option>5 Seconds</option>
+          <option>15 Seconds</option>
+          <option>30 Seconds</option>
+          <option>1 Minute</option>
+          <option>2 Minutes</option>
+          <option>3 Minutes</option>
+        </select>
+      </div>
+
+      <!-- 4) Get Signal box -->
+      <div class="box" style="padding:14px;">
+        <button class="get-btn" id="getSignalBtn">GET SIGNAL</button>
+      </div>
+    </div> <!-- end boxes -->
+
+    <!-- سگنل آؤٹ پٹ — شروع میں چھپا ہوا رہے گا -->
+    <div id="signalOut" class="signal-output" style="display:none;background:transparent;">
+      <div id="signalLine" class="signal-line"></div>
+      <div id="candleLine" class="signal-line"></div>
+      <div id="tzLine" class="signal-line"></div>
+      <div id="loveLine" class="signal-line"></div>
+      <div id="singleLine" class="signal-single-line" style="opacity:0.95"></div>
+    </div>
+
+  </div>
+
+  <div class="gear" title="Settings">⚙️</div>
+
+<script>
+  // یہ لائنیں آپ کے اصل کوڈ جیسی ہیں — صرف یہ فرق ہے کہ سگنل باکس شروع میں hidden ہے
+  const getBtn = document.getElementById('getSignalBtn');
+  const outBox = document.getElementById('signalOut');
+  const signalLine = document.getElementById('signalLine');
+  const candleLine = document.getElementById('candleLine');
+  const tzLine = document.getElementById('tzLine');
+  const loveLine = document.getElementById('loveLine');
+  const singleLine = document.getElementById('singleLine');
+  const assetSelect = document.getElementById('assetSelect');
+  const tfSelect = document.getElementById('tfSelect');
+
+  function formatTime(date){
+    return date.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  }
+
+  // جب بٹن دبائیں تب ہی سگنل دکھائیں اور معلومات اپ ڈیٹ کریں
+  getBtn.addEventListener('click', ()=>{
+    // اگر باکس پہلے hidden ہے تو دکھا دیں (display:flex جیسا کہ CSS میں تھا)
+    if (outBox.style.display === 'none' || outBox.style.display === '') {
+      outBox.style.display = 'flex';
+    }
+
+    // Demo: رینڈم سگنل
+    const arr = ['BUY','SELL'];
+    const pick = arr[Math.floor(Math.random()*arr.length)];
+
+    const now = new Date();
+    const tstr = formatTime(now);
+
+    // یہاں متن اپڈیٹ کریں
+    signalLine.textContent = 'SIGNAL: ' + pick;
+    candleLine.textContent = 'Candle time: ' + tstr;
+    tzLine.textContent = 'Timezone: +5:00';
+    loveLine.textContent = 'I LOVE YOU VEER RAMZAN BHAI';
+    
+
+    // رنگ بدلیں (BUY = green, SELL = red)
+    if(pick === 'BUY'){
+      outBox.style.backgroundColor = '#118a4a';
+      outBox.style.border = '2px solid rgba(0,200,110,0.95)';
+      outBox.style.boxShadow = '0 10px 30px rgba(0,170,90,0.28)';
+      outBox.style.color = '#ffffff';
+    } else {
+      outBox.style.backgroundColor = '#d93b3b';
+      outBox.style.border = '2px solid rgba(230,80,60,0.95)';
+      outBox.style.boxShadow = '0 10px 30px rgba(210,70,70,0.28)';
+      outBox.style.color = '#ffffff';
+    }
+
+    // pulse animation
+    outBox.animate([
+      { transform: 'translateY(0)' },
+      { transform: 'translateY(-6px)' },
+      { transform: 'translateY(0)' }
+    ], { duration: 420, easing: 'ease-out' });
+
+  });
+
+  // ابتدائی حالت
+  outBox.style.transition = 'all 220ms ease';
+  outBox.style.background = 'transparent';
+  outBox.style.border = '2px solid rgba(255,255,255,0.04)';
+</script>
+</body>
+</html>
